@@ -9,7 +9,7 @@ function Home() {
   return (
     <>
       <Head>
-        <title>React App</title>
+        <title>Schedule</title>
       </Head>
       <Schedule />
     </>
