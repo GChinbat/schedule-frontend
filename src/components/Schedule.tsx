@@ -1,11 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 
-import List from '@bit/danilowoz.react-content-loader.list';
-import { DataTable } from '@bit/grommet.grommet.data-table';
-import { Accordion } from '@bit/grommet.grommet.accordion';
-import { AccordionPanel } from '@bit/grommet.grommet.accordion-panel';
+import { Tabs, Table } from 'antd';
 
 import { GET_SCHEDULE, ScheduleEntry } from '@/api/schedule';
 
@@ -26,45 +22,45 @@ const processScheduleEntry = (entry: ScheduleEntry) => ({
 
 const columns = [
   {
-    header: 'Хичээл',
-    property: 'lesson',
+    title: 'Хичээл',
+    dataIndex: 'lesson',
+    key: 'lesson',
   },
   {
-    header: 'Бүлэг',
-    property: 'group',
+    title: 'Бүлэг',
+    dataIndex: 'group',
+    key: 'group',
   },
   {
-    header: 'Орох цаг',
-    property: 'time',
+    title: 'Орох цаг',
+    dataIndex: 'time',
+    key: 'time',
   },
   {
-    header: 'Багш',
-    property: 'teachers',
+    title: 'Багш',
+    dataIndex: 'teachers',
+    key: 'teachers',
   },
 ];
 
-const LoadingList = styled(List)`
-  max-width: 400px;
-  max-height: 200px;
-`;
+const { TabPane } = Tabs;
 
 const days = ['Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан'];
 function Schedule() {
   const { data, loading } = useQuery(GET_SCHEDULE);
-  if (loading) return <LoadingList />;
 
   return (
-    <Accordion>
+    <Tabs defaultActiveKey={days[0]} tabPosition="top">
       {days.map((day, i) => (
-        <AccordionPanel label={day} key={day}>
-          <DataTable
-            data={data.schedule[i].map(processScheduleEntry)}
+        <TabPane tab={day} key={day}>
+          <Table
+            loading={loading}
             columns={columns}
-            primaryKey="slug"
+            dataSource={data?.schedule[i].map(processScheduleEntry)}
           />
-        </AccordionPanel>
+        </TabPane>
       ))}
-    </Accordion>
+    </Tabs>
   );
 }
 
