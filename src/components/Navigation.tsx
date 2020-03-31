@@ -1,5 +1,8 @@
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
 import { Layout, Menu } from 'antd';
 
@@ -16,12 +19,26 @@ const Logo = styled.img`
 `;
 
 function Navigation() {
+  const router = useRouter();
+  console.log(router.pathname);
   return (
     <Header>
       <Logo src="/assets/logo.png" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1">Хуваарь</Menu.Item>
-        <Menu.Item key="2">Хичээлүүд</Menu.Item>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={[router.pathname]}
+      >
+        <Menu.Item key="/">
+          <Link href="/">
+            <a>Хуваарь</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="/lessons">
+          <Link href="/lessons">
+            <a>Хичээлүүд</a>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Header>
   );
