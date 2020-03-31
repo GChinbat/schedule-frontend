@@ -4,6 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import List from '@bit/danilowoz.react-content-loader.list';
 import { DataTable } from '@bit/grommet.grommet.data-table';
+import { Accordion } from '@bit/grommet.grommet.accordion';
+import { AccordionPanel } from '@bit/grommet.grommet.accordion-panel';
 
 import { GET_SCHEDULE, ScheduleEntry } from '@/api/schedule';
 
@@ -46,16 +48,23 @@ const LoadingList = styled(List)`
   max-height: 200px;
 `;
 
+const days = ['Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан'];
 function Schedule() {
   const { data, loading } = useQuery(GET_SCHEDULE);
-  return loading ? (
-    <LoadingList />
-  ) : (
-    <DataTable
-      data={data.schedule[0].map(processScheduleEntry)}
-      columns={columns}
-      primaryKey="slug"
-    />
+  if (loading) return <LoadingList />;
+
+  return (
+    <Accordion>
+      {days.map((day, i) => (
+        <AccordionPanel label={day} key={day}>
+          <DataTable
+            data={data.schedule[i].map(processScheduleEntry)}
+            columns={columns}
+            primaryKey="slug"
+          />
+        </AccordionPanel>
+      ))}
+    </Accordion>
   );
 }
 
