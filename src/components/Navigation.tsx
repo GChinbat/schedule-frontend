@@ -39,6 +39,12 @@ function Navigation() {
             <a>Хичээлүүд</a>
           </Link>
         </Menu.Item>
+
+        <Menu.Item key="/login">
+          <Link href="/login">
+            <a>Нэвтрэх</a>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Header>
   );
