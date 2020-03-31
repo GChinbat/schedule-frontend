@@ -54,6 +54,7 @@ function Schedule() {
       {days.map((day, i) => (
         <TabPane tab={day} key={day}>
           <Table
+            scroll={{ x: true }}
             loading={loading}
             columns={columns}
             dataSource={data?.schedule[i].map(processScheduleEntry)}
