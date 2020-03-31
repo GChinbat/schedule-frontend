@@ -1,0 +1,6 @@
+{
+  "import useAmp": {
+    "prefix": "imamp",
+    "body": "import { useAmp } from 'next/amp';"
+  }
+}

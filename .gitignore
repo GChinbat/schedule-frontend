@@ -1,0 +1,12 @@
+node_modules/
+
+# Next.js build output
+.next/
+dist/
+out/
+
+.DS_Store
+
+# Firebase logs and hosting cache
+.firebase
+firebase-debug.log

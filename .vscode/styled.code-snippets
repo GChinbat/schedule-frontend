@@ -1,0 +1,14 @@
+{
+  "import styled-components": {
+    "prefix": "imsc",
+    "body": "import styled from 'styled-components';"
+  },
+  "import styled-components/native": {
+    "prefix": "imscrn",
+    "body": "import styled from 'styled-components/native';"
+  },
+  "Styled component": {
+    "prefix": "styled",
+    "body": "const $1 = styled``;"
+  }
+}

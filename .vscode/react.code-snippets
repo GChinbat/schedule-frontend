@@ -1,0 +1,46 @@
+{
+  "import React": {
+    "prefix": "imr",
+    "body": "import React from 'react';"
+  },
+  "import ReactDOM": {
+    "prefix": "imrd",
+    "body": "import ReactDOM from 'react-dom';"
+  },
+  "import prop-types": {
+    "prefix": "impt",
+    "body": "import PropTypes from 'prop-types';"
+  },
+  "export default": {
+    "prefix": "ed",
+    "body": "export default $1;"
+  },
+  "Functional component with props": {
+    "prefix": "cfc",
+    "body": "const $1: React.FC<{}> = () => {}"
+  },
+  "Functional component": {
+    "prefix": "fc",
+    "body": ["function $1() {", "}"]
+  },
+  "PropTypes": {
+    "prefix": "pt",
+    "body": "$1.propTypes = {};"
+  },
+  "Hook": {
+    "prefix": "hook",
+    "body": "export function $1() {}"
+  },
+  "useState": {
+    "prefix": "us",
+    "body": "React.useState($1);"
+  },
+  "useEffect": {
+    "prefix": "uf",
+    "body": "React.useEffect(() => {$1}, []);"
+  },
+  "useCallback": {
+    "prefix": "ucb",
+    "body": "React.useCallback(() => {$1}, []);"
+  }
+}
