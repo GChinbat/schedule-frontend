@@ -1,17 +1,29 @@
 import App from 'next/app';
 import React from 'react';
+import styled from 'styled-components';
 
-import { Grommet } from '@bit/grommet.grommet.grommet';
-import GlobalStyles from '@/components/GlobalStyles';
+import Navigation from '@/components/Navigation';
+import { Layout } from 'antd';
+
+const Container = styled(Layout)`
+  min-height: 100vh;
+  flex-direction: column;
+`;
+const Content = styled(Layout.Content)`
+  padding: 0 50px;
+  margin-top: 10px;
+`;
 
 export default class ReactApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Grommet full>
-        <Component {...pageProps} />
-        <GlobalStyles />
-      </Grommet>
+      <Container>
+        <Navigation />
+        <Content>
+          <Component {...pageProps} />
+        </Content>
+      </Container>
     );
   }
 }
