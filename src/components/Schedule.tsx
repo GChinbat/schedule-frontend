@@ -1,9 +1,8 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-
 import { Tabs, Table } from 'antd';
 
-import { GET_SCHEDULE, ScheduleEntry } from '@/api/schedule';
+import { daysOfWeek } from '@/util';
+import { ScheduleEntry } from '@/api/schedule';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -17,7 +16,7 @@ const processScheduleEntry = (entry: ScheduleEntry) => ({
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
   group: entry.lessonGroup.groupName,
   lesson: entry.lessonGroup.lesson.name,
-  teachers: entry.lessonGroup.lesson.teachers,
+  teachers: entry.lessonGroup.lesson.teachers.join(', '),
 });
 
 const columns = [
@@ -45,19 +44,22 @@ const columns = [
 
 const { TabPane } = Tabs;
 
-const days = ['Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан'];
-function Schedule() {
-  const { data, loading } = useQuery(GET_SCHEDULE);
-
+function Schedule({
+  schedule,
+  loading,
+}: {
+  schedule?: ScheduleEntry[][];
+  loading: boolean;
+}) {
   return (
-    <Tabs defaultActiveKey={days[0]} tabPosition="top">
-      {days.map((day, i) => (
+    <Tabs defaultActiveKey={daysOfWeek[0]} tabPosition="top">
+      {daysOfWeek.map((day, i) => (
         <TabPane tab={day} key={day}>
           <Table
             scroll={{ x: true }}
             loading={loading}
             columns={columns}
-            dataSource={data?.schedule[i].map(processScheduleEntry)}
+            dataSource={schedule?.[i].map(processScheduleEntry)}
           />
         </TabPane>
       ))}
