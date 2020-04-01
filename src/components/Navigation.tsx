@@ -20,7 +20,6 @@ const Logo = styled.img`
 
 function Navigation() {
   const router = useRouter();
-  console.log(router.pathname);
   return (
     <Header>
       <Logo src="/assets/logo.png" />
