@@ -39,3 +39,24 @@ export const GET_SCHEDULE = gql`
     }
   }
 `;
+
+export const GET_LESSONS_AND_GROUPS = gql`
+  query {
+    getLessons {
+      name
+      slug
+      groups {
+        slug
+        groupName
+      }
+    }
+  }
+`;
+
+export const ADD_SCHEDULE_ITEM = gql`
+  mutation addScheduleItem($item: ScheduleItemInput!) {
+    addScheduleItem(item: $item) {
+      id
+    }
+  }
+`;
