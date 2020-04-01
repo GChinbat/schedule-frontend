@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import { Layout, Menu } from 'antd';
@@ -36,12 +35,6 @@ function Navigation() {
         <Menu.Item key="/lessons">
           <Link href="/lessons">
             <a>Хичээлүүд</a>
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="/login">
-          <Link href="/login">
-            <a>Нэвтрэх</a>
           </Link>
         </Menu.Item>
       </Menu>
