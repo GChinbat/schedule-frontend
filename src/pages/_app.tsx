@@ -9,10 +9,6 @@ const Container = styled(Layout)`
   min-height: 100vh;
   flex-direction: column;
 `;
-const Content = styled(Layout.Content)`
-  padding: 0 50px;
-  margin-top: 10px;
-`;
 
 export default class ReactApp extends App {
   render() {
@@ -20,9 +16,7 @@ export default class ReactApp extends App {
     return (
       <Container>
         <Navigation />
-        <Content>
-          <Component {...pageProps} />
-        </Content>
+        <Component {...pageProps} />
       </Container>
     );
   }
