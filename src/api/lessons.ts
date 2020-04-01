@@ -42,3 +42,12 @@ export const ADD_LESSON = gql`
     }
   }
 `;
+
+export const ADD_GROUP = gql`
+  mutation addGroup($group: LessonGroupInput!) {
+    addLessonGroup(group: $group) {
+      slug
+      groupName
+    }
+  }
+`;
