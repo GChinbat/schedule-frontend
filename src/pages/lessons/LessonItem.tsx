@@ -64,15 +64,15 @@ function LessonItem({
                 .then(refetch)
             }
           >
-            <Button loading={removingLesson} type="primary" danger>
+            <Button loading={removingLesson} block type="primary" danger>
               Устгах
             </Button>
           </Popconfirm>
-          <Button key="addTeacher" type="primary">
+          <Button key="addTeacher" block type="primary">
             Багш нэмэх
           </Button>
-          <Button key="addGroup" type="primary">
-            Хичээлийн бүлэг нэмэх
+          <Button key="addGroup" block type="primary">
+            Бүлэг нэмэх
           </Button>
         </Space>
       </Descriptions.Item>
