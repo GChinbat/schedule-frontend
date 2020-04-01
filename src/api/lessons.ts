@@ -26,3 +26,19 @@ export const GET_LESSONS = gql`
     }
   }
 `;
+
+export const REMOVE_LESSON = gql`
+  mutation removeLesson($slug: String!) {
+    removeLesson(lessonSlug: $slug)
+  }
+`;
+
+export const ADD_LESSON = gql`
+  mutation addLesson($lesson: LessonInput!) {
+    addLesson(lesson: $lesson) {
+      slug
+      name
+      teachers
+    }
+  }
+`;
