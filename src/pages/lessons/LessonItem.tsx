@@ -53,6 +53,17 @@ function LessonItem({
         )}
         <Descriptions.Item label="Yйлдлүүд">
           <Space direction="vertical">
+            <Button key="addTeacher" type="primary" block>
+              Багш нэмэх
+            </Button>
+            <Button
+              key="addGroup"
+              type="primary"
+              block
+              onClick={() => setAddingGroup(true)}
+            >
+              Бүлэг нэмэх
+            </Button>
             <Popconfirm
               key="remove"
               title="Та устгаад итгэлтэй байна уу?"
@@ -73,17 +84,6 @@ function LessonItem({
                 Устгах
               </Button>
             </Popconfirm>
-            <Button key="addTeacher" type="primary" block>
-              Багш нэмэх
-            </Button>
-            <Button
-              key="addGroup"
-              type="primary"
-              block
-              onClick={() => setAddingGroup(true)}
-            >
-              Бүлэг нэмэх
-            </Button>
           </Space>
         </Descriptions.Item>
       </Item>
