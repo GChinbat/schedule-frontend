@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 
-import { Layout, Descriptions, Skeleton } from 'antd';
+import { Layout, Descriptions, Skeleton, Button, Space } from 'antd';
 
 import { withApollo } from '@/api/withApollo';
 import { GET_LESSONS, Lesson } from '@/api/lessons';
@@ -53,6 +53,15 @@ function Lessons() {
               ))}
             </Descriptions.Item>
           )}
+          <Descriptions.Item label="Yйлдлүүд">
+            <Space direction="vertical">
+              <Button type="primary" danger>
+                Устгах
+              </Button>
+              <Button type="primary">Багш нэмэх</Button>
+              <Button type="primary">Хичээлийн бүлэг нэмэх</Button>
+            </Space>
+          </Descriptions.Item>
         </LessonItem>
       ))}
     </Content>
