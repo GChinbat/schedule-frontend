@@ -10,7 +10,13 @@ const Item = styled(Descriptions)`
   margin: 10px 0;
 `;
 
-function LessonItem({ lesson }: { lesson: Lesson }) {
+function LessonItem({
+  lesson,
+  refetch,
+}: {
+  lesson: Lesson;
+  refetch: () => void;
+}) {
   const [removeLesson, { loading: removingLesson }] = useMutation(
     REMOVE_LESSON,
     {
@@ -48,12 +54,14 @@ function LessonItem({ lesson }: { lesson: Lesson }) {
             okText="Тийм"
             cancelText="Yгүй"
             onConfirm={() =>
-              removeLesson().catch((err: Error) =>
-                notification.error({
-                  message: 'Алдаа гарлаа',
-                  description: err.message,
-                }),
-              )
+              removeLesson()
+                .catch((err: Error) =>
+                  notification.error({
+                    message: 'Алдаа гарлаа',
+                    description: err.message,
+                  }),
+                )
+                .then(refetch)
             }
           >
             <Button loading={removingLesson} type="primary" danger>

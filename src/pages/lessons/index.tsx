@@ -15,7 +15,7 @@ const Content = styled(Layout.Content)`
 `;
 
 function Lessons() {
-  const { data, loading } = useQuery(GET_LESSONS);
+  const { data, loading, refetch } = useQuery(GET_LESSONS);
 
   if (loading)
     return (
@@ -29,7 +29,7 @@ function Lessons() {
   return (
     <Content>
       {data.getLessons.map((lesson: Lesson) => (
-        <LessonItem key={lesson.slug} lesson={lesson} />
+        <LessonItem key={lesson.slug} lesson={lesson} refetch={refetch} />
       ))}
     </Content>
   );
