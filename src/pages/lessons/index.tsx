@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
@@ -29,19 +30,24 @@ function Lessons() {
     );
 
   return (
-    <Content>
-      <Button type="primary" onClick={() => setAddingLesson(true)}>
-        Хичээл нэмэх
-      </Button>
-      {data.getLessons.map((lesson: Lesson) => (
-        <LessonItem key={lesson.slug} lesson={lesson} refetch={refetch} />
-      ))}
-      <AddLessonModal
-        show={addingLesson}
-        refetch={refetch}
-        setModalState={setAddingLesson}
-      />
-    </Content>
+    <>
+      <Head>
+        <title>Lessons</title>
+      </Head>
+      <Content>
+        <Button type="primary" onClick={() => setAddingLesson(true)}>
+          Хичээл нэмэх
+        </Button>
+        {data.getLessons.map((lesson: Lesson) => (
+          <LessonItem key={lesson.slug} lesson={lesson} refetch={refetch} />
+        ))}
+        <AddLessonModal
+          show={addingLesson}
+          refetch={refetch}
+          setModalState={setAddingLesson}
+        />
+      </Content>
+    </>
   );
 }
 
