@@ -17,6 +17,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 COPY --from=builder /usr/src/app/schedule-app/.next ./.next
+COPY --from=builder /usr/src/app/schedule-app/public ./public
 COPY --from=builder /usr/src/app/schedule-app/next.config.js ./
 
 EXPOSE 3000
