@@ -1,3 +1,3 @@
 export default {
-  graphqlEndpoint: 'https://schedule.nest-high.tech/graphql',
+  graphqlEndpoint: 'https://api.nest-high.tech/schedule',
 };
