@@ -19,5 +19,5 @@ RUN npm ci --only=production
 COPY --from=builder /usr/src/app/schedule-app/.next ./.next
 COPY --from=builder /usr/src/app/schedule-app/next.config.js ./
 
-EXPOSE 4000
+EXPOSE 3000
 CMD [ "npm", "start" ]
