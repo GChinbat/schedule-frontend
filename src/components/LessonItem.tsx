@@ -6,7 +6,7 @@ import { Descriptions, Popconfirm, Button, Space, notification } from 'antd';
 import { useMutation } from '@apollo/react-hooks';
 import { Lesson, REMOVE_LESSON } from '@/api/lessons';
 
-import AddGroupModal from './modals/AddGroup';
+import AddGroupModal from '@/modals/AddGroup';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;

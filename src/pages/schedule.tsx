@@ -9,7 +9,7 @@ import { GET_SCHEDULE } from '@/api/schedule';
 import { Layout, Button } from 'antd';
 import Schedule from '@/components/Schedule';
 
-import AddScheduleItemModal from './AddScheduleItem';
+import AddScheduleItemModal from '@/modals/AddScheduleItem';
 
 const Content = styled(Layout.Content)`
   padding: 0 50px;
