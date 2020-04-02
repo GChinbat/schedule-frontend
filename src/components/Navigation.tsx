@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import { Layout, Menu } from 'antd';

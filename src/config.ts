@@ -1,1 +1,3 @@
-export default { graphqlEndpoint: 'http://localhost:4000/graphql' };
+export default {
+  graphqlEndpoint: 'https://schedule.nest-high.tech/graphql',
+};
