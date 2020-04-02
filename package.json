@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "start": "npx next",
+    "dev": "npx next",
+    "start": "npx next start",
     "build": "npx next build; npx next export"
   },
   "prettier": {
