@@ -1,5 +1,8 @@
 import React from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { Form, Input, Button } from 'antd';
+
+import { LOGIN } from '@/api/auth';
 
 const layout = {
   labelCol: { span: 4 },
@@ -10,7 +13,11 @@ const tailLayout = {
 };
 
 function Login() {
-  const onFinish = console.log;
+  const [login, { data, loading }] = useLazyQuery(LOGIN);
+
+  const onFinish = (formData) => {
+    login({ variables: formData });
+  };
   const onFinishFailed = console.warn;
 
   return (
@@ -37,7 +44,7 @@ function Login() {
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button loading={loading} type="primary" htmlType="submit">
           Нэвтрэх
         </Button>
       </Form.Item>
