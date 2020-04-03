@@ -21,7 +21,7 @@ function Login() {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Username"
+        label="Нэвтрэх нэр"
         name="username"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
@@ -29,7 +29,7 @@ function Login() {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Нууц үг"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
@@ -38,7 +38,7 @@ function Login() {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Нэвтрэх
         </Button>
       </Form.Item>
     </Form>
