@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Table } from 'antd';
+import { Tabs, Table, Space, Button } from 'antd';
 
 import { daysOfWeek } from '@/util';
 import { ScheduleEntry } from '@/api/schedule';
@@ -39,6 +39,19 @@ const columns = [
     title: 'Багш',
     dataIndex: 'teachers',
     key: 'teachers',
+  },
+  {
+    title: 'Yйлдлүүд',
+    render: () => (
+      <Space direction="vertical">
+        <Button block type="primary">
+          Засах
+        </Button>
+        <Button block type="primary" danger>
+          Устгах
+        </Button>
+      </Space>
+    ),
   },
 ];
 
