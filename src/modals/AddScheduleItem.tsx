@@ -1,18 +1,16 @@
-import React from 'react';
+import to from 'await-to-js';
+import React, { useCallback } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { Form, Modal, Select, Skeleton, TimePicker, notification } from 'antd';
+import { Form, Modal, Skeleton, notification } from 'antd';
 
-import { daysOfWeek } from '@/util';
 import {
   Time,
   ADD_SCHEDULE_ITEM,
   GET_LESSONS_AND_GROUPS,
 } from '@/api/schedule';
 
-import GroupSelector from '@/components/GroupSelector';
-
-const { Option } = Select;
+import ScheduleItemForm from '@/forms/ScheduleItem';
 
 function parseTime(time): Time {
   return {
@@ -36,6 +34,37 @@ function AddScheduleItemModal({
     ADD_SCHEDULE_ITEM,
   );
 
+  const onSubmit = useCallback(async () => {
+    const [err, formData] = await to(form.validateFields());
+    if (err) return;
+
+    const { day, endTime, startTime, groupSlug } = formData;
+    const [submitError] = await to(
+      addScheduleItem({
+        variables: {
+          item: {
+            day,
+            endTime: parseTime(endTime),
+            startTime: parseTime(startTime),
+            groupSlug,
+          },
+        },
+      }),
+    );
+    if (submitError) {
+      notification.error({
+        message: 'Алдаа гарлаа',
+        description: submitError.message,
+      });
+      return;
+    }
+
+    refetch();
+    form.resetFields();
+    setModalState(false);
+    notification.success({ message: 'Амжилттай' });
+  }, [form, addScheduleItem, refetch]);
+
   if (loading) {
     return (
       <Modal
@@ -53,68 +82,12 @@ function AddScheduleItemModal({
   return (
     <Modal
       title="Хуваарийн хичээл нэмэх"
-      onOk={() => {
-        form
-          .validateFields()
-          .then(({ day, endTime, startTime, groupSlug }) =>
-            addScheduleItem({
-              variables: {
-                item: {
-                  day,
-                  endTime: parseTime(endTime),
-                  startTime: parseTime(startTime),
-                  groupSlug,
-                },
-              },
-            }),
-          )
-          .then(() => form.resetFields())
-          .then(() => setModalState(false))
-          .then(refetch)
-          .then(() => notification.success({ message: 'Амжилттай' }))
-          .catch((err: Error) =>
-            notification.error({
-              message: 'Алдаа гарлаа',
-              description: err.message,
-            }),
-          );
-      }}
+      onOk={onSubmit}
       visible={show}
       confirmLoading={mutating}
       onCancel={() => setModalState(false)}
     >
-      <Form labelCol={{ span: 7 }} form={form} name="add-schedule-item">
-        <Form.Item name="day" label="Өдөр" rules={[{ required: true }]}>
-          <Select>
-            {daysOfWeek.map((day, i) => (
-              <Option key={day} value={i + 1}>
-                {day}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="groupSlug"
-          label="Хичээлийн бүлэг"
-          rules={[{ required: true }]}
-        >
-          <GroupSelector data={data} />
-        </Form.Item>
-        <Form.Item
-          name="startTime"
-          label="Эхлэх цаг"
-          rules={[{ required: true }]}
-        >
-          <TimePicker format="HH:mm" />
-        </Form.Item>
-        <Form.Item
-          name="endTime"
-          label="Дуусах цаг"
-          rules={[{ required: true }]}
-        >
-          <TimePicker format="HH:mm" />
-        </Form.Item>
-      </Form>
+      <ScheduleItemForm form={form} lessons={data} />
     </Modal>
   );
 }
