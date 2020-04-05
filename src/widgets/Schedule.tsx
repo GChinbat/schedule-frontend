@@ -6,7 +6,7 @@ import { ScheduleEntry } from '@/api/schedule';
 import { EditScheduleContext } from '@/hooks/EditScheduleState';
 
 import Group from '@/components/Group';
-import { LessonGroup } from '@/api/lessons';
+import Teacher from '@/components/Teacher';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -28,7 +28,7 @@ export type TableScheduleEntry = {
     };
   };
   lesson: string;
-  teachers: string;
+  teachers: string[];
   entry: ScheduleEntry & { id: string; day: number };
 };
 const processScheduleEntry = (day: number) => (
@@ -38,7 +38,7 @@ const processScheduleEntry = (day: number) => (
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
   group: entry.lessonGroup,
   lesson: entry.lessonGroup.lesson.name,
-  teachers: entry.lessonGroup.lesson.teachers.join(', '),
+  teachers: entry.lessonGroup.lesson.teachers,
   entry: { ...entry, id: entry.id, day },
 });
 
@@ -63,6 +63,8 @@ const columns = [
     title: 'Багш',
     dataIndex: 'teachers',
     key: 'teachers',
+    render: (teachers) =>
+      teachers.map((teacher) => <Teacher key={teacher} name={teacher} />),
   },
   {
     title: 'Yйлдлүүд',

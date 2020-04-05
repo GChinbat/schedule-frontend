@@ -9,6 +9,7 @@ import { Lesson, REMOVE_LESSON } from '@/api/lessons';
 import AddGroupModal from '@/modals/AddGroup';
 
 import Group from '@/components/Group';
+import Teacher from '@/components/Teacher';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;
@@ -40,7 +41,9 @@ function LessonItem({
           <Descriptions.Item
             label={lesson.teachers.length === 1 ? 'Багш' : 'Багш нар'}
           >
-            {lesson.teachers.join(', ')}
+            {lesson.teachers.map((teacher) => (
+              <Teacher name={teacher} />
+            ))}
           </Descriptions.Item>
         )}
         {lesson.groups.length > 0 && (
