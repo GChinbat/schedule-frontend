@@ -21,15 +21,18 @@ function createApolloClient(initialState, ctx) {
     ssrMode: Boolean(ctx),
     link: ApolloLink.from([
       setContext((_, { headers }) => {
-        // Get the authentication token from local storage if it exists
-        const token = globalThis.localStorage?.getItem('token');
-        // Return the headers to the context so httpLink can read them
-        return {
-          headers: {
-            ...headers,
-            authorization: token,
-          },
-        };
+        if (typeof window !== 'undefined') {
+          // Get the authentication token from local storage if it exists
+          const token = localStorage.getItem('token');
+          // Return the headers to the context so httpLink can read them
+          return {
+            headers: {
+              ...headers,
+              authorization: token,
+            },
+          };
+        }
+        return { headers };
       }),
       createPersistedQueryLink({ useGETForHashedQueries: true }),
       new HttpLink({
