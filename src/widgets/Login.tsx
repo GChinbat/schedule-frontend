@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Form, Input, Button } from 'antd';
 
 import { LOGIN } from '@/api/auth';
+import { useRouter } from 'next/router';
 
 const layout = {
-  labelCol: { span: 4 },
+  labelCol: { span: 6 },
   wrapperCol: { span: 12 },
 };
 const tailLayout = {
@@ -13,20 +14,21 @@ const tailLayout = {
 };
 
 function Login() {
+  const router = useRouter();
   const [login, { data, loading }] = useLazyQuery(LOGIN);
 
   const onFinish = (formData) => {
     login({ variables: formData });
   };
-  const onFinishFailed = console.warn;
+  useEffect(() => {
+    if (data?.login) {
+      localStorage.setItem('token', data.login);
+      router.push('/');
+    }
+  }, [data]);
 
   return (
-    <Form
-      {...layout}
-      name="basic"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
+    <Form {...layout} name="basic" onFinish={onFinish}>
       <Form.Item
         label="Нэвтрэх нэр"
         name="username"
