@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
@@ -23,19 +22,16 @@ function Navigation() {
     <Header>
       <Logo src="/assets/logo.png" />
       <Menu
-        theme="dark"
         mode="horizontal"
+        theme="dark"
+        onClick={({ key }) => router.push(key)}
         defaultSelectedKeys={router.pathname ? [router.pathname] : []}
       >
         <Menu.Item key="/">
-          <Link href="/">
-            <span>Хуваарь</span>
-          </Link>
+          <span>Хуваарь</span>
         </Menu.Item>
         <Menu.Item key="/lessons">
-          <Link href="/lessons">
-            <span>Хичээлүүд</span>
-          </Link>
+          <span>Хичээлүүд</span>
         </Menu.Item>
       </Menu>
     </Header>
