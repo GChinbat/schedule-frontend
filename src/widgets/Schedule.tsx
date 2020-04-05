@@ -3,6 +3,7 @@ import { Tabs, Table } from 'antd';
 
 import { daysOfWeek } from '@/util';
 import { ScheduleEntry } from '@/api/schedule';
+import Group from '@/components/Group';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -15,7 +16,7 @@ function formatTime({ startTime, endTime }: ScheduleEntry) {
 const processScheduleEntry = (entry: ScheduleEntry) => ({
   time: formatTime(entry),
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
-  group: entry.lessonGroup.groupName,
+  group: entry.lessonGroup,
   lesson: entry.lessonGroup.lesson.name,
   teachers: entry.lessonGroup.lesson.teachers.join(', '),
 });
@@ -30,6 +31,7 @@ const columns = [
     title: 'Бүлэг',
     dataIndex: 'group',
     key: 'group',
+    render: (group) => <Group name={group.groupName} slug={group.slug} />,
   },
   {
     title: 'Орох цаг',

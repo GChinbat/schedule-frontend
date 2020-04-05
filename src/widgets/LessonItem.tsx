@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import { Descriptions } from 'antd';
 
 import { Lesson } from '@/api/lessons';
+
+import Group from '@/components/Group';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;
@@ -27,10 +29,11 @@ function LessonItem({ lesson }: { lesson: Lesson }) {
         {lesson.groups.length > 0 && (
           <Descriptions.Item label="Бүлгүүд">
             {lesson.groups.map((group) => (
-              <Fragment key={group.slug}>
-                <span>{group.groupName}</span>
-                <br />
-              </Fragment>
+              <Group
+                key={group.slug}
+                name={group.groupName}
+                slug={group.slug}
+              />
             ))}
           </Descriptions.Item>
         )}
