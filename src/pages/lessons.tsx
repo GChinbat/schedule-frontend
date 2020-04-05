@@ -8,7 +8,7 @@ import { Layout, Skeleton, Button } from 'antd';
 import { withApollo } from '@/api/withApollo';
 import { GET_LESSONS, Lesson } from '@/api/lessons';
 
-import LessonItem from '@/components/LessonItem';
+import LessonItem from '@/widgets/LessonItem';
 import AddLessonModal from '@/modals/AddLesson';
 
 const Content = styled(Layout.Content)`

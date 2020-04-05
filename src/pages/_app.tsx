@@ -2,7 +2,7 @@ import App from 'next/app';
 import React from 'react';
 import styled from 'styled-components';
 
-import Navigation from '@/components/Navigation';
+import Navigation from '@/widgets/Navigation';
 import { Layout } from 'antd';
 
 const Container = styled(Layout)`

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Tabs, Layout } from 'antd';
 
-import Login from '@/components/Login';
-import Register from '@/components/Register';
+import Login from '@/widgets/Login';
+import Register from '@/widgets/Register';
 
 const { TabPane } = Tabs;
 

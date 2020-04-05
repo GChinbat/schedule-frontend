@@ -7,7 +7,7 @@ import { withApollo } from '@/api/withApollo';
 import { GET_SCHEDULE } from '@/api/schedule';
 
 import { Layout, Button } from 'antd';
-import Schedule from '@/components/Schedule';
+import Schedule from '@/widgets/Schedule';
 import AddScheduleItemModal from '@/modals/AddScheduleItem';
 import EditScheduleItemModal from '@/modals/EditScheduleItem';
 
