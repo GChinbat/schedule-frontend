@@ -12,7 +12,8 @@ export default class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           // eslint-disable-next-line
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -35,8 +36,9 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <meta name="description" content="" />
           <meta name="robots" content="index, follow" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <body>
           <Main />
