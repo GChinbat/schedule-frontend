@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Form, Input, Button, Layout } from 'antd';
+import { Form, Input, Button, Layout, notification } from 'antd';
 
 import { LOGIN } from '@/api/auth';
 
@@ -23,7 +23,7 @@ const tailLayout = {
 
 function LoginPage() {
   const router = useRouter();
-  const [login, { data, loading }] = useLazyQuery(LOGIN);
+  const [login, { data, loading, error }] = useLazyQuery(LOGIN);
 
   const onFinish = (formData) => {
     login({ variables: formData });
@@ -34,6 +34,13 @@ function LoginPage() {
       router.push('/');
     }
   }, [data]);
+  useEffect(() => {
+    if (!error) return;
+    notification.error({
+      message: 'Алдаа гарлаа',
+      description: error.message,
+    });
+  }, [error]);
 
   return (
     <Content>
