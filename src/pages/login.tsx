@@ -4,6 +4,7 @@ import { Tabs, Layout } from 'antd';
 
 import Login from '@/widgets/Login';
 import Register from '@/widgets/Register';
+import { withApollo } from '@/api/withApollo';
 
 const { TabPane } = Tabs;
 
@@ -27,5 +28,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
-  
+export default withApollo({ ssr: false })(LoginPage);
