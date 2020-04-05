@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Tabs, Table, Space, Button } from 'antd';
 
 import { daysOfWeek } from '@/util';
 import { ScheduleEntry } from '@/api/schedule';
+import { EditScheduleContext } from '@/hooks/EditScheduleState';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -11,12 +12,24 @@ function formatTime({ startTime, endTime }: ScheduleEntry) {
     .toString()
     .padStart(2, '0')}`;
 }
-const processScheduleEntry = (entry: ScheduleEntry) => ({
+
+export type TableScheduleEntry = {
+  time: string;
+  slug: string;
+  group: string;
+  lesson: string;
+  teachers: string;
+  entry: ScheduleEntry & { id: string; day: number };
+};
+const processScheduleEntry = (day: number) => (
+  entry: ScheduleEntry,
+): Omit<TableScheduleEntry, 'day'> => ({
   time: formatTime(entry),
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
   group: entry.lessonGroup.groupName,
   lesson: entry.lessonGroup.lesson.name,
   teachers: entry.lessonGroup.lesson.teachers.join(', '),
+  entry: { ...entry, id: entry.id, day },
 });
 
 const columns = [
@@ -42,9 +55,16 @@ const columns = [
   },
   {
     title: 'Yйлдлүүд',
-    render: () => (
+    dataIndex: 'actions',
+    render: (
+      _,
+      {
+        actions: { edit },
+        entry,
+      }: TableScheduleEntry & { actions: { edit: Function } },
+    ) => (
       <Space direction="vertical">
-        <Button block type="primary">
+        <Button block type="primary" onClick={() => edit(entry)}>
           Засах
         </Button>
         <Button block type="primary" danger>
@@ -64,6 +84,19 @@ function Schedule({
   schedule?: ScheduleEntry[][];
   loading: boolean;
 }) {
+  const { setScheduleItem } = useContext(EditScheduleContext);
+  const tableData = useMemo(() => {
+    if (!schedule) return;
+    return schedule.map((dayData, i) =>
+      dayData.map(processScheduleEntry(i + 1)).map((entry) => ({
+        ...entry,
+        actions: {
+          edit: setScheduleItem,
+        },
+      })),
+    );
+  }, [schedule]);
+
   return (
     <Tabs defaultActiveKey={daysOfWeek[0]} tabPosition="top">
       {daysOfWeek.map((day, i) => (
@@ -72,7 +105,7 @@ function Schedule({
             scroll={{ x: true }}
             loading={loading}
             columns={columns}
-            dataSource={schedule?.[i].map(processScheduleEntry)}
+            dataSource={tableData?.[i]}
           />
         </TabPane>
       ))}

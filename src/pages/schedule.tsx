@@ -8,8 +8,10 @@ import { GET_SCHEDULE } from '@/api/schedule';
 
 import { Layout, Button } from 'antd';
 import Schedule from '@/components/Schedule';
-
 import AddScheduleItemModal from '@/modals/AddScheduleItem';
+import EditScheduleItemModal from '@/modals/EditScheduleItem';
+
+import { EditScheduleStateProvider } from '@/hooks/EditScheduleState';
 
 const Content = styled(Layout.Content)`
   padding: 0 50px;
@@ -20,7 +22,7 @@ function Home() {
   const { data, loading, refetch } = useQuery(GET_SCHEDULE);
   const [addingSchedule, setAddingSchedule] = useState(false);
   return (
-    <>
+    <EditScheduleStateProvider>
       <Head>
         <title>Schedule</title>
       </Head>
@@ -35,7 +37,8 @@ function Home() {
         refetch={refetch}
         setModalState={setAddingSchedule}
       />
-    </>
+      <EditScheduleItemModal refetch={refetch} />
+    </EditScheduleStateProvider>
   );
 }
 

@@ -46,7 +46,7 @@ function ScheduleItemForm({
         label="Хичээлийн бүлэг"
         rules={[{ required: true }]}
       >
-        <GroupSelector data={lessons} />
+        <GroupSelector data={lessons} disabled={!!initialValues?.groupSlug} />
       </Form.Item>
       <Form.Item
         name="startTime"
