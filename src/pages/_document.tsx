@@ -39,6 +39,22 @@ export default class MyDocument extends Document {
           <meta name="robots" content="index, follow" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="apple-touch-icon" href="/assets/icon-192x192.png" />
+          <link
+            rel="apple-touch-icon"
+            sizes="192x192"
+            href="/assets/icon-192x192.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="256x256"
+            href="/assets/icon-256x256.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="512x512"
+            href="/assets/icon-512x512.png"
+          />
         </Head>
         <body>
           <Main />
