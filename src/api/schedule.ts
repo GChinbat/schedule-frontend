@@ -5,6 +5,7 @@ export type Time = {
   minutes: number;
 };
 export type ScheduleEntry = {
+  id: string;
   lessonGroup: {
     slug: string;
     groupName: string;
