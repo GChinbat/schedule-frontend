@@ -8,7 +8,7 @@ import { Layout, Skeleton } from 'antd';
 import { withApollo } from '@/api/withApollo';
 import { GET_LESSONS, Lesson } from '@/api/lessons';
 
-import LessonItem from '@/components/LessonItem';
+import LessonItem from '@/widgets/LessonItem';
 
 const Content = styled(Layout.Content)`
   padding: 10px 50px 0 50px;

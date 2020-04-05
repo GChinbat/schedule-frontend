@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
+import { Layout } from 'antd';
 
 import { useQuery } from '@apollo/react-hooks';
 import { withApollo } from '@/api/withApollo';
 import { GET_SCHEDULE } from '@/api/schedule';
 
-import { Layout } from 'antd';
-import Schedule from '@/components/Schedule';
+import Schedule from '@/widgets/Schedule';
 
 const Content = styled(Layout.Content)`
   padding: 0 50px;

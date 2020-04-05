@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Tabs, Table } from 'antd';
 
 import { daysOfWeek } from '@/util';
@@ -11,6 +11,7 @@ function formatTime({ startTime, endTime }: ScheduleEntry) {
     .toString()
     .padStart(2, '0')}`;
 }
+
 const processScheduleEntry = (entry: ScheduleEntry) => ({
   time: formatTime(entry),
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
@@ -51,6 +52,11 @@ function Schedule({
   schedule?: ScheduleEntry[][];
   loading: boolean;
 }) {
+  const tableData = useMemo(() => {
+    if (!schedule) return;
+    return schedule.map((dayData) => dayData.map(processScheduleEntry));
+  }, [schedule]);
+
   return (
     <Tabs defaultActiveKey={daysOfWeek[0]} tabPosition="top">
       {daysOfWeek.map((day, i) => (
@@ -59,7 +65,7 @@ function Schedule({
             scroll={{ x: true }}
             loading={loading}
             columns={columns}
-            dataSource={schedule?.[i].map(processScheduleEntry)}
+            dataSource={tableData?.[i]}
           />
         </TabPane>
       ))}
