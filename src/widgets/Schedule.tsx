@@ -5,6 +5,9 @@ import { daysOfWeek } from '@/util';
 import { ScheduleEntry } from '@/api/schedule';
 import { EditScheduleContext } from '@/hooks/EditScheduleState';
 
+import Group from '@/components/Group';
+import { LessonGroup } from '@/api/lessons';
+
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
     .toString()
@@ -16,7 +19,14 @@ function formatTime({ startTime, endTime }: ScheduleEntry) {
 export type TableScheduleEntry = {
   time: string;
   slug: string;
-  group: string;
+  group: {
+    slug: string;
+    groupName: string;
+    lesson: {
+      name: string;
+      teachers: string[];
+    };
+  };
   lesson: string;
   teachers: string;
   entry: ScheduleEntry & { id: string; day: number };
@@ -26,7 +36,7 @@ const processScheduleEntry = (day: number) => (
 ): Omit<TableScheduleEntry, 'day'> => ({
   time: formatTime(entry),
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
-  group: entry.lessonGroup.groupName,
+  group: entry.lessonGroup,
   lesson: entry.lessonGroup.lesson.name,
   teachers: entry.lessonGroup.lesson.teachers.join(', '),
   entry: { ...entry, id: entry.id, day },
@@ -42,6 +52,7 @@ const columns = [
     title: 'Бүлэг',
     dataIndex: 'group',
     key: 'group',
+    render: (group) => <Group name={group.groupName} slug={group.slug} />,
   },
   {
     title: 'Орох цаг',

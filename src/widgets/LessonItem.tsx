@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import { Descriptions, Popconfirm, Button, Space, notification } from 'antd';
@@ -7,6 +7,8 @@ import { useMutation } from '@apollo/react-hooks';
 import { Lesson, REMOVE_LESSON } from '@/api/lessons';
 
 import AddGroupModal from '@/modals/AddGroup';
+
+import Group from '@/components/Group';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;
@@ -44,10 +46,11 @@ function LessonItem({
         {lesson.groups.length > 0 && (
           <Descriptions.Item label="Бүлгүүд">
             {lesson.groups.map((group) => (
-              <Fragment key={group.slug}>
-                <span>{group.groupName}</span>
-                <br />
-              </Fragment>
+              <Group
+                key={group.slug}
+                name={group.groupName}
+                slug={group.slug}
+              />
             ))}
           </Descriptions.Item>
         )}
