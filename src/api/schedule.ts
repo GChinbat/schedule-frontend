@@ -60,3 +60,16 @@ export const ADD_SCHEDULE_ITEM = gql`
     }
   }
 `;
+
+export type EditScheduleItemInput = {
+  day?: number;
+  endTime?: Time;
+  startTime?: Time;
+};
+export const EDIT_SCHEDULE_ITEM = gql`
+  mutation editScheduleItem($id: String!, $item: EditScheduleItemInput!) {
+    editScheduleItem(id: $id, item: $item) {
+      id
+    }
+  }
+`;
