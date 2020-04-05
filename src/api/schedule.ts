@@ -20,6 +20,7 @@ export type ScheduleEntry = {
 export const GET_SCHEDULE = gql`
   query {
     schedule {
+      id
       lessonGroup {
         slug
         groupName
