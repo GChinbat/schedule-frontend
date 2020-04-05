@@ -1,5 +1,5 @@
 import to from 'await-to-js';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { Form, Modal, Skeleton, notification } from 'antd';
@@ -60,6 +60,16 @@ function EditScheduleItemModal({ refetch }: { refetch: () => void }) {
     notification.success({ message: 'Амжилттай' });
   }, [form, editScheduleItem, refetch, scheduleItem]);
 
+  useEffect(() => {
+    if (!scheduleItem) return;
+    form.setFieldsValue({
+      day: scheduleItem.day,
+      groupSlug: scheduleItem.lessonGroup.slug,
+      startTime: moment(scheduleItem.startTime),
+      endTime: moment(scheduleItem.endTime),
+    });
+  }, [scheduleItem]);
+
   if (loading) {
     return (
       <Modal
@@ -82,18 +92,7 @@ function EditScheduleItemModal({ refetch }: { refetch: () => void }) {
       onCancel={() => setScheduleItem(null)}
       confirmLoading={mutating}
     >
-      {scheduleItem && (
-        <ScheduleItemForm
-          initialValues={{
-            day: scheduleItem.day,
-            groupSlug: scheduleItem.lessonGroup.slug,
-            startTime: moment(scheduleItem.startTime),
-            endTime: moment(scheduleItem.endTime),
-          }}
-          form={form}
-          lessons={data}
-        />
-      )}
+      {scheduleItem && <ScheduleItemForm form={form} lessons={data} />}
     </Modal>
   );
 }
