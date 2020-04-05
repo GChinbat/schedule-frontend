@@ -3,7 +3,9 @@ import { Tabs, Table } from 'antd';
 
 import { daysOfWeek } from '@/util';
 import { ScheduleEntry } from '@/api/schedule';
+
 import Group from '@/components/Group';
+import Teacher from '@/components/Teacher';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -18,7 +20,7 @@ const processScheduleEntry = (entry: ScheduleEntry) => ({
   slug: `${entry.lessonGroup.slug}-${formatTime(entry)}`,
   group: entry.lessonGroup,
   lesson: entry.lessonGroup.lesson.name,
-  teachers: entry.lessonGroup.lesson.teachers.join(', '),
+  teachers: entry.lessonGroup.lesson.teachers,
 });
 
 const columns = [
@@ -42,6 +44,8 @@ const columns = [
     title: 'Багш',
     dataIndex: 'teachers',
     key: 'teachers',
+    render: (teachers) =>
+      teachers.map((teacher) => <Teacher key={teacher} name={teacher} />),
   },
 ];
 

@@ -6,6 +6,7 @@ import { Descriptions } from 'antd';
 import { Lesson } from '@/api/lessons';
 
 import Group from '@/components/Group';
+import Teacher from '@/components/Teacher';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;
@@ -23,7 +24,9 @@ function LessonItem({ lesson }: { lesson: Lesson }) {
           <Descriptions.Item
             label={lesson.teachers.length === 1 ? 'Багш' : 'Багш нар'}
           >
-            {lesson.teachers.join(', ')}
+            {lesson.teachers.map((teacher) => (
+              <Teacher name={teacher} />
+            ))}
           </Descriptions.Item>
         )}
         {lesson.groups.length > 0 && (
