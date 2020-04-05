@@ -6,9 +6,11 @@ import Head from 'next/head';
 import fetch from 'isomorphic-unfetch';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
+import { ApolloLink } from 'apollo-link';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 import config from '@/config';
 
@@ -17,23 +19,25 @@ function createApolloClient(initialState, ctx) {
   // use it to extract auth headers (ctx.req) or similar.
   return new ApolloClient({
     ssrMode: Boolean(ctx),
-    link: setContext((_, { headers }) => {
-      // Get the authentication token from local storage if it exists
-      const token = globalThis.localStorage?.getItem('token');
-      // Return the headers to the context so httpLink can read them
-      return {
-        headers: {
-          ...headers,
-          authorization: token,
-        },
-      };
-    }).concat(
+    link: ApolloLink.from([
+      setContext((_, { headers }) => {
+        // Get the authentication token from local storage if it exists
+        const token = globalThis.localStorage?.getItem('token');
+        // Return the headers to the context so httpLink can read them
+        return {
+          headers: {
+            ...headers,
+            authorization: token,
+          },
+        };
+      }),
+      createPersistedQueryLink({ useGETForHashedQueries: true }),
       new HttpLink({
         uri: config.graphqlEndpoint, // Server URL (must be absolute)
         credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
         fetch,
       }),
-    ),
+    ]),
     cache: new InMemoryCache().restore(initialState),
   });
 }
