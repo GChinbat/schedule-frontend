@@ -5,7 +5,9 @@ import { Tag } from 'antd';
 function Teacher({ name }: { name: string }) {
   return (
     <Tag style={{ cursor: 'pointer' }}>
-      <Link href={`/teacher/${name}`}>{name}</Link>
+      <Link href={`/teacher/${name}`}>
+        <a>{name}</a>
+      </Link>
     </Tag>
   );
 }

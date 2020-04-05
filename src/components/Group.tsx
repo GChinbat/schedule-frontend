@@ -5,7 +5,9 @@ import { Tag } from 'antd';
 function Group({ name, slug }: { name: string; slug: string }) {
   return (
     <Tag style={{ cursor: 'pointer' }}>
-      <Link href={`/group/${slug}`}>{name}</Link>
+      <Link href={`/group/${slug}`}>
+        <a>{name}</a>
+      </Link>
     </Tag>
   );
 }
