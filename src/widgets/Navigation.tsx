@@ -25,22 +25,16 @@ function Navigation() {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={[router.pathname]}
+        defaultSelectedKeys={router.pathname ? [router.pathname] : []}
       >
         <Menu.Item key="/">
           <Link href="/">
-            <a>Хуваарь</a>
+            <span>Хуваарь</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/lessons">
           <Link href="/lessons">
-            <a>Хичээлүүд</a>
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="/login">
-          <Link href="/login">
-            <a>Нэвтрэх</a>
+            <span>Хичээлүүд</span>
           </Link>
         </Menu.Item>
       </Menu>

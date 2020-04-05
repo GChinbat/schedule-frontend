@@ -11,6 +11,8 @@ import { GET_LESSONS, Lesson } from '@/api/lessons';
 import LessonItem from '@/widgets/LessonItem';
 import AddLessonModal from '@/modals/AddLesson';
 
+import { useLoginCheck } from '@/hooks/useLoginCheck';
+
 const Content = styled(Layout.Content)`
   padding: 10px 50px 0 50px;
   background-color: white;
@@ -19,6 +21,7 @@ const Content = styled(Layout.Content)`
 function Lessons() {
   const { data, loading, refetch } = useQuery(GET_LESSONS);
   const [addingLesson, setAddingLesson] = useState(false);
+  useLoginCheck();
 
   if (loading)
     return (

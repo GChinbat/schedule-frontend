@@ -11,6 +11,7 @@ import Schedule from '@/widgets/Schedule';
 import AddScheduleItemModal from '@/modals/AddScheduleItem';
 import EditScheduleItemModal from '@/modals/EditScheduleItem';
 
+import { useLoginCheck } from '@/hooks/useLoginCheck';
 import { EditScheduleStateProvider } from '@/hooks/EditScheduleState';
 
 const Content = styled(Layout.Content)`
@@ -21,6 +22,8 @@ const Content = styled(Layout.Content)`
 function Home() {
   const { data, loading, refetch } = useQuery(GET_SCHEDULE);
   const [addingSchedule, setAddingSchedule] = useState(false);
+  useLoginCheck();
+
   return (
     <EditScheduleStateProvider>
       <Head>
