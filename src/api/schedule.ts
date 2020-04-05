@@ -75,3 +75,26 @@ export const EDIT_SCHEDULE_ITEM = gql`
     }
   }
 `;
+
+export const GET_SCHEDULE_FOR_GROUP = gql`
+  query getScheduleForGroup($groupSlug: String!) {
+    scheduleForGroup(groupSlug: $groupSlug) {
+      lessonGroup {
+        slug
+        groupName
+        lesson {
+          name
+          teachers
+        }
+      }
+      startTime {
+        hours
+        minutes
+      }
+      endTime {
+        hours
+        minutes
+      }
+    }
+  }
+`;
