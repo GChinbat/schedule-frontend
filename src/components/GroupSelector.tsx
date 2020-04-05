@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { TreeSelect } from 'antd';
+import { TreeSelectProps } from 'antd/lib/tree-select';
 
 import { Lesson } from '@/api/lessons';
 
@@ -16,7 +17,10 @@ function parseTreeData(data) {
   }));
 }
 
-function GroupSelector({ data, ...props }: { data: Lesson[] } & any) {
+function GroupSelector({
+  data,
+  ...props
+}: { data: Lesson[] } & TreeSelectProps<any>) {
   const treeData = useMemo(() => parseTreeData(data), [data]);
 
   return (
