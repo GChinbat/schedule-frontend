@@ -1,4 +1,5 @@
 import React from 'react';
+import { Moment } from 'moment';
 import { Form, Select, TimePicker } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
@@ -13,12 +14,24 @@ const { Option } = Select;
 function ScheduleItemForm({
   form,
   lessons,
+  initialValues,
 }: {
   form: FormInstance;
   lessons: Lesson[];
+  initialValues?: {
+    day: number;
+    groupSlug: string;
+    startTime: Moment;
+    endTime: Moment;
+  };
 }) {
   return (
-    <Form labelCol={{ span: 7 }} form={form} name="add-schedule-item">
+    <Form
+      name="add-schedule-item"
+      form={form}
+      labelCol={{ span: 7 }}
+      initialValues={initialValues}
+    >
       <Form.Item name="day" label="Өдөр" rules={[{ required: true }]}>
         <Select>
           {daysOfWeek.map((day, i) => (
