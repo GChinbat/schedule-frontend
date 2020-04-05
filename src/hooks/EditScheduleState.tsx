@@ -2,8 +2,9 @@ import React, { createContext, useState, ReactNode } from 'react';
 
 import { ScheduleEntry } from '@/api/schedule';
 
+export type EditableScheduleEntry = ScheduleEntry & { day: number };
 export const EditScheduleContext = createContext<{
-  scheduleItem: ScheduleEntry | null;
+  scheduleItem: EditableScheduleEntry | null;
   setScheduleItem: React.Dispatch<React.SetStateAction<ScheduleEntry>>;
 }>({ scheduleItem: null, setScheduleItem: null });
 
@@ -12,7 +13,7 @@ export function EditScheduleStateProvider({
 }: {
   children: ReactNode | ReactNode[];
 }) {
-  const [scheduleItem, setScheduleItem] = useState<ScheduleEntry>(null);
+  const [scheduleItem, setScheduleItem] = useState<EditableScheduleEntry>(null);
   return (
     <EditScheduleContext.Provider value={{ scheduleItem, setScheduleItem }}>
       {children}
