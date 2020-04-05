@@ -2,7 +2,6 @@ const path = require('path');
 const withCss = require('@zeit/next-css');
 const withOffline = require('next-offline');
 const withPlugins = require('next-compose-plugins');
-const withManifest = require('next-manifest');
 
 module.exports = withPlugins(
   [
