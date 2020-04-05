@@ -56,10 +56,6 @@ function AddScheduleItemModal({
       onOk={() => {
         form
           .validateFields()
-          .then((obj) => {
-            console.log(obj);
-            return obj;
-          })
           .then(({ day, endTime, startTime, groupSlug }) =>
             addScheduleItem({
               variables: {
