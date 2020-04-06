@@ -36,10 +36,11 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <meta name="robots" content="index, follow" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#011528" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-title" content="Schedule" />
           <link rel="apple-touch-icon" href="/assets/icon-192x192.png" />
           <link
             rel="apple-touch-icon"
