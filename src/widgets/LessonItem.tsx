@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import styled from 'styled-components';
-import { Descriptions, Popconfirm, Button, Space, notification } from 'antd';
+import { Descriptions, Button, Space, notification } from 'antd';
 
 import { useMutation } from '@apollo/react-hooks';
 import { Lesson, REMOVE_LESSON } from '@/api/lessons';
@@ -10,6 +10,7 @@ import AddGroupModal from '@/modals/AddGroup';
 
 import Group from '@/components/Group';
 import Teacher from '@/components/Teacher';
+import RemoveButton from '@/components/RemoveButton';
 
 const Item = styled(Descriptions)`
   margin: 10px 0;
@@ -70,11 +71,8 @@ function LessonItem({
             >
               Бүлэг нэмэх
             </Button>
-            <Popconfirm
-              key="remove"
-              title="Та устгаад итгэлтэй байна уу?"
-              okText="Тийм"
-              cancelText="Yгүй"
+            <RemoveButton
+              loading={removingLesson}
               onConfirm={() =>
                 removeLesson()
                   .catch((err: Error) =>
@@ -85,11 +83,7 @@ function LessonItem({
                   )
                   .then(refetch)
               }
-            >
-              <Button loading={removingLesson} block type="primary" danger>
-                Устгах
-              </Button>
-            </Popconfirm>
+            />
           </Space>
         </Descriptions.Item>
       </Item>
