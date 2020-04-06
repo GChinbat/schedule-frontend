@@ -33,7 +33,11 @@ function Home() {
         <Button type="primary" onClick={() => setAddingSchedule(true)}>
           Хуваарийн хичээл нэмэх
         </Button>
-        <Schedule loading={loading} schedule={data?.schedule} />
+        <Schedule
+          loading={loading}
+          refetch={refetch}
+          schedule={data?.schedule}
+        />
       </Content>
       <AddScheduleItemModal
         show={addingSchedule}

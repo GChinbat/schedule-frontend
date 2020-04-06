@@ -1,12 +1,14 @@
 import React, { useContext, useMemo } from 'react';
-import { Tabs, Table, Space, Button } from 'antd';
+import { Tabs, Table, Space, Button, notification } from 'antd';
 
 import { daysOfWeek } from '@/util';
-import { ScheduleEntry } from '@/api/schedule';
+import { ScheduleEntry, REMOVE_SCHEDULE_ITEM } from '@/api/schedule';
 import { EditScheduleContext } from '@/hooks/EditScheduleState';
 
 import Group from '@/components/Group';
 import Teacher from '@/components/Teacher';
+import RemoveButton from '@/components/RemoveButton';
+import { useMutation } from '@apollo/react-hooks';
 
 function formatTime({ startTime, endTime }: ScheduleEntry) {
   return `${startTime.hours}:${startTime.minutes
@@ -72,17 +74,21 @@ const columns = [
     render: (
       _,
       {
-        actions: { edit },
+        actions: { edit, remove, removing },
         entry,
-      }: TableScheduleEntry & { actions: { edit: Function } },
+      }: TableScheduleEntry & {
+        actions: {
+          edit: (entry: ScheduleEntry) => void;
+          remove: (entry: ScheduleEntry) => void;
+          removing: boolean;
+        };
+      },
     ) => (
       <Space direction="vertical">
         <Button block type="primary" onClick={() => edit(entry)}>
           Засах
         </Button>
-        <Button block type="primary" danger>
-          Устгах
-        </Button>
+        <RemoveButton loading={removing} onConfirm={() => remove(entry)} />
       </Space>
     ),
   },
@@ -93,10 +99,15 @@ const { TabPane } = Tabs;
 function Schedule({
   schedule,
   loading,
+  refetch,
 }: {
   schedule?: ScheduleEntry[][];
   loading: boolean;
+  refetch: () => void;
 }) {
+  const [removeScheduleItem, { loading: mutating }] = useMutation(
+    REMOVE_SCHEDULE_ITEM,
+  );
   const { setScheduleItem } = useContext(EditScheduleContext);
   const tableData = useMemo(() => {
     if (!schedule) return;
@@ -105,6 +116,17 @@ function Schedule({
         ...entry,
         actions: {
           edit: setScheduleItem,
+          remove: (entryToBeRemoved: ScheduleEntry) =>
+            removeScheduleItem({ variables: { id: entryToBeRemoved.id } })
+              .then(refetch)
+              .then(() => notification.success({ message: 'Амжилттай' }))
+              .catch((err) =>
+                notification.error({
+                  message: 'Алдаа гарлаа',
+                  description: err.message,
+                }),
+              ),
+          removing: mutating,
         },
       })),
     );

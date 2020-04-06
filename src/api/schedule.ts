@@ -98,3 +98,9 @@ export const GET_SCHEDULE_FOR_GROUP = gql`
     }
   }
 `;
+
+export const REMOVE_SCHEDULE_ITEM = gql`
+  mutation removeScheduleItem($id: String!) {
+    removeScheduleItem(id: $id)
+  }
+`;
