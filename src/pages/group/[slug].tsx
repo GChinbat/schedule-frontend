@@ -17,7 +17,7 @@ const Content = styled(Layout.Content)`
 
 function Home() {
   const router = useRouter();
-  const { data, loading } = useQuery(GET_SCHEDULE_FOR_GROUP, {
+  const { data, loading, refetch } = useQuery(GET_SCHEDULE_FOR_GROUP, {
     variables: { groupSlug: router.query.slug },
   });
 
@@ -27,7 +27,11 @@ function Home() {
         <title>Schedule</title>
       </Head>
       <Content>
-        <Schedule loading={loading} schedule={data?.scheduleForGroup} />
+        <Schedule
+          loading={loading}
+          refetch={refetch}
+          schedule={data?.scheduleForGroup}
+        />
       </Content>
     </>
   );
