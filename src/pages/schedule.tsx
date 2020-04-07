@@ -15,7 +15,7 @@ import { useLoginCheck } from '@/hooks/useLoginCheck';
 import { EditScheduleStateProvider } from '@/hooks/EditScheduleState';
 
 const Content = styled(Layout.Content)`
-  padding: 0 50px;
+  padding: 0 30px;
   margin-top: 10px;
 `;
 
