@@ -9,9 +9,11 @@ import { withApollo } from '@/api/withApollo';
 import { GET_LESSONS, Lesson } from '@/api/lessons';
 
 import LessonItem from '@/widgets/LessonItem';
+import AddGroupModal from '@/modals/AddGroup';
 import AddLessonModal from '@/modals/AddLesson';
 
 import { useLoginCheck } from '@/hooks/useLoginCheck';
+import { AddGroupStateProvider } from '@/hooks/AddGroupState';
 
 const Content = styled(Layout.Content)`
   padding: 10px 50px 0 50px;
@@ -38,17 +40,20 @@ function Lessons() {
         <title>Lessons</title>
       </Head>
       <Content>
-        <Button type="primary" onClick={() => setAddingLesson(true)}>
-          Хичээл нэмэх
-        </Button>
-        {data.getLessons.map((lesson: Lesson) => (
-          <LessonItem key={lesson.slug} lesson={lesson} refetch={refetch} />
-        ))}
-        <AddLessonModal
-          show={addingLesson}
-          refetch={refetch}
-          setModalState={setAddingLesson}
-        />
+        <AddGroupStateProvider>
+          <Button type="primary" onClick={() => setAddingLesson(true)}>
+            Хичээл нэмэх
+          </Button>
+          {data.getLessons.map((lesson: Lesson) => (
+            <LessonItem key={lesson.slug} lesson={lesson} refetch={refetch} />
+          ))}
+          <AddLessonModal
+            show={addingLesson}
+            refetch={refetch}
+            setModalState={setAddingLesson}
+          />
+          <AddGroupModal refetch={refetch} />
+        </AddGroupStateProvider>
       </Content>
     </>
   );
