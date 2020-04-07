@@ -10,7 +10,7 @@ import { Layout } from 'antd';
 import Schedule from '@/widgets/Schedule';
 
 const Content = styled(Layout.Content)`
-  padding: 0 50px;
+  padding: 0 30px;
   margin-top: 10px;
 `;
 
